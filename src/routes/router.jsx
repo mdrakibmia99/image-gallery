@@ -1,14 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import NotFound404 from "../pages/NotFound404";
-import { Suspense, lazy } from "react";
-import Loading from "../components/Loading/Loading";
-const HomeApp = lazy(() => import("../components/Gallery"));
+
+import App from "../App";
+
 const router = createBrowserRouter([
     {
       path: "/",
-      element:<Suspense fallback={<Loading />}>
-        <HomeApp/>
-      </Suspense>,
+      element:<App/>
+,
     },
     {
       path: "*",

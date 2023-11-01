@@ -103,7 +103,7 @@ const Gallery = () => {
                     </div>
                 ))}
                 <div className="flex flex-col justify-center items-center  min-w-[180px] min-h-[180px]" >
-                    <img style={{ width: "30px", height: "30px" }} src="/public/icon/gallery.png" alt="Icon" />
+                    <img style={{ width: "30px", height: "30px" }} src="/icon/gallery.png" alt="Icon" />
                     <p>Add Image</p>
                 </div>
 

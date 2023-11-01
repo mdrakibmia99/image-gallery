@@ -12,6 +12,7 @@ body{
 .gallery-body{
   display: grid;
   grid-template-columns:repeat(auto-fit, minmax(180px,1fr)) ;
+  grid-template-rows:repeat(auto-fit, minmax(180px,1fr)) ;
   grid-gap: 20px;
   
 }

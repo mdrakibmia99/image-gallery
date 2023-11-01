@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
 import { Images } from '../data/ImageData';
+import Loading from './Loading/Loading';
 const Gallery = () => {
     // after select a img it store there 
     const [selectedImages, setSelectedImages] = useState([]);
@@ -49,7 +50,9 @@ const Gallery = () => {
         setImages(deleteItemFilter);
         setSelectedImages([])
     }
-
+ if(Images.length===0){
+    return <Loading/>
+ }
 
 
     return (

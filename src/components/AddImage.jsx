@@ -14,7 +14,7 @@ const AddImage = ({setImages,images}) => {
         const selectedFile = e.target.files[0];
         if (selectedFile) {
             setSelectedImage(URL.createObjectURL(selectedFile));
-            const addNewImage= {_id:String(maxIdObject +1),image:URL.createObjectURL(selectedFile)}
+            const addNewImage= {_id:String(parseInt(maxIdObject._id) +1),image:URL.createObjectURL(selectedFile)}
             setImages([...images,addNewImage])
         }
     };

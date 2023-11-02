@@ -10,7 +10,7 @@ const Gallery = () => {
 
     // Use the provided image data
     const [images, setImages] = useState(Images);
-  
+  console.log(images,"all image show")
     const [draggedImage, setDraggedImage] = useState(null);
     const [dragedID, setDragedID] = useState(null)
 

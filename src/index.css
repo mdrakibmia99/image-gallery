@@ -24,7 +24,7 @@ body{
 .gallery-main{
   display:grid;
   width:980px;
-  /* height:800px; */
+  height:auto;
   margin: 0 auto;
   justify-content: center;
   background-color: white;
@@ -60,11 +60,7 @@ body{
 }
 
 
-@media (min-width: 1024px) {
-  .gallery-main{
-    max-height:800px;
-  }
-}
+
 @media screen and (min-width: 681px) and (max-width: 980px) {
 
   .gallery-body{

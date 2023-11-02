@@ -1,18 +1,21 @@
 
 import { useState } from 'react';
 import { Images } from '../data/ImageData';
+import AfterSelectHeader from './AfterSelectHeader';
+import PreviewImage from './PreviewImage';
+import AddImage from './AddImage';
 const Gallery = () => {
     // after select a img it store there 
     const [selectedImages, setSelectedImages] = useState([]);
 
     // Use the provided image data
     const [images, setImages] = useState(Images);
-
+  
     const [draggedImage, setDraggedImage] = useState(null);
     const [dragedID, setDragedID] = useState(null)
 
- 
-   
+
+
 
     // when a user click a image then data will be save  setSelectedImages
     const handleImageClick = (imageId) => {
@@ -23,7 +26,9 @@ const Gallery = () => {
         }
 
     };
-
+    const handleUnselect = () => {
+        setSelectedImages([])
+    }
 
     const handleDragStart = (e, image) => {
         e.dataTransfer.setData('imageId', image._id);
@@ -65,23 +70,13 @@ const Gallery = () => {
 
 
 
-    return (<div className="gallery-main pb-5 px-2">
+    return (<div className="gallery-main  pb-5 px-2">
         {/* gallery top */}
 
         {selectedImages.length === 0 ? <p className='text-xl font-bold p-5 flex items-center '>Gallery</p>
             :
-            <div className='flex justify-between items-center p-5 '>
-                <div className='flex justify-center items-center'>
-                    <input className='w-4 h-4 ' type="checkbox" checked />
-                    <p className='pl-2 text-xl font-bold'>{selectedImages.length} FIles Selected</p>
-                </div >
-                <div className='pr-23'>
-                    <button
-                        onClick={handleDelete}
-                        className='text-[red]'>Delete File</button></div>
-            </div>
+            <AfterSelectHeader handleUnselect={handleUnselect} selectedImages={selectedImages} handleDelete={handleDelete} />
         }
-
 
         <hr className='border-0 h-2 bg-gray-700 mb-3' />
 
@@ -109,21 +104,11 @@ const Gallery = () => {
 
                         />
 
-                        <div
-
-                            className='absolute w-full  h-full bg-black top-0 left-0 opacity-0  hover:opacity-50 duration-300 cursor-move'>
+                        <div className='absolute w-full  h-full bg-black top-0 left-0 opacity-0  hover:opacity-50 duration-300 cursor-move'>
                             <input checked={false} readOnly onClick={() => handleImageClick(image._id)} className='h-5 w-5 ml-5 mt-5 cursor-pointer' type="checkbox" name="checkbox" id={image._id} />
                         </div>
-                        {dragedID == image._id &&
-
-                            <div className='absolute w-full z-50   h-full bg-black top-0 duration-300 left-0'>
-                                 <img className='w-full h-full' src={draggedImage?.image} alt="" />
-
-                                
-    
-                               
-                            </div>
-                        }
+                        {/* when drag start a image then user can see preview  */}
+                        {dragedID == image._id && <PreviewImage draggedImage={draggedImage} />}
                     </div>
                     {selectedImages.includes(image._id) && (
                         <div
@@ -133,11 +118,9 @@ const Gallery = () => {
                     )}
                 </div>
             ))}
-            <div className="flex flex-col justify-center items-center  min-w-[180px] min-h-[180px]" >
-                <img style={{ width: "30px", height: "30px" }} src="/icon/gallery.png" alt="Icon" />
-                <p>Add Image</p>
-            </div>
+ 
 
+            <AddImage setImages={setImages} images={images}/>
         </div>
     </div>
 

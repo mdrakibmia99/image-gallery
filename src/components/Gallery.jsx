@@ -7,7 +7,12 @@ const Gallery = () => {
 
     // Use the provided image data
     const [images, setImages] = useState(Images);
+
     const [draggedImage, setDraggedImage] = useState(null);
+    const [dragedID, setDragedID] = useState(null)
+
+ 
+   
 
     // when a user click a image then data will be save  setSelectedImages
     const handleImageClick = (imageId) => {
@@ -27,7 +32,13 @@ const Gallery = () => {
 
     const handleDragOver = (e) => {
         e.preventDefault();
-        console.log("ki asbe ")
+        e?.target?.children[0]?.id && setDragedID(e?.target?.children[0]?.id);
+        // const imageCopy=images.find(data=>data._id==e?.target?.children[0]?.id)
+        // if(imageCopy){
+
+        //     setImagePreview(imageCopy)
+        // }
+
     };
 
     const handleDrop = (e, targetImage) => {
@@ -42,6 +53,7 @@ const Gallery = () => {
 
         setImages(updatedImages);
         setDraggedImage(null);
+        setDragedID(null)
     };
 
     const handleDelete = (e) => {
@@ -76,13 +88,13 @@ const Gallery = () => {
 
         {/* gallery body  */}
 
-        <div className="gallery-body ">
+        <div onDragOver={handleDragOver} className="gallery-body ">
 
             {images?.map((image) => (
                 <div
                     className="gallery-item relative"
                     key={image._id}
-                    onDragOver={handleDragOver}
+
                     onDrop={(e) => handleDrop(e, image)}
                 >
                     <div
@@ -100,13 +112,23 @@ const Gallery = () => {
                         <div
 
                             className='absolute w-full  h-full bg-black top-0 left-0 opacity-0  hover:opacity-50 duration-300 cursor-move'>
-                            <input checked={false} onClick={() => handleImageClick(image._id)} className='h-5 w-5 ml-5 mt-5 cursor-pointer' type="checkbox" name="checkbox" id="checkbox" />
+                            <input checked={false} readOnly onClick={() => handleImageClick(image._id)} className='h-5 w-5 ml-5 mt-5 cursor-pointer' type="checkbox" name="checkbox" id={image._id} />
                         </div>
+                        {dragedID == image._id &&
+
+                            <div className='absolute w-full z-50   h-full bg-black top-0 duration-300 left-0'>
+                                 <img className='w-full h-full' src={draggedImage?.image} alt="" />
+
+                                
+    
+                               
+                            </div>
+                        }
                     </div>
                     {selectedImages.includes(image._id) && (
                         <div
                             className={` absolute w-full h-full bg-black top-0 left-0 opacity-30 cursor-auto`}>
-                            <input checked onClick={() => handleImageClick(image._id)} className='h-5 w-5 ml-5 mt-5 cursor-pointer' type="checkbox" name="checkbox2" id="checkbox2" />
+                            <input id={image._id} defaultChecked onClick={() => handleImageClick(image._id)} className='h-5 w-5 ml-5 mt-5 cursor-pointer' type="checkbox" name="checkbox2" />
                         </div>
                     )}
                 </div>
